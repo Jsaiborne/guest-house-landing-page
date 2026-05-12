@@ -1,0 +1,110 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import RoomGallery from '../../components/RoomGallery.jsx';
+import { rooms } from '../../data/rooms';
+
+export async function getStaticPaths() {
+  return rooms.map((room) => ({
+    params: { slug: room.slug },
+    props: { room },
+  }));
+}
+
+const { room } = Astro.props;
+
+// Find next and previous rooms for navigation
+const currentIndex = rooms.findIndex((r) => r.slug === room.slug);
+const prevRoom = rooms[(currentIndex - 1 + rooms.length) % rooms.length];
+const nextRoom = rooms[(currentIndex + 1) % rooms.length];
+---
+
+<Layout title={`${room.name} | Romillie Hadeljo`}>
+  <main class="min-h-screen bg-[#FAFAF9] pb-20">
+    <!-- Sticky Navigation -->
+    <nav class="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-stone-100 py-4 px-6">
+      <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <a href="/rooms" class="text-stone-600 hover:text-emerald-900 transition-colors flex items-center gap-2 text-sm font-medium uppercase tracking-wider">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          All Rooms
+        </a>
+        <div class="hidden md:block">
+          <h2 class="text-lg font-serif text-slate-900">{room.name}</h2>
+        </div>
+        <a href="/#contact" class="bg-emerald-900 text-white px-6 py-2 rounded-sm text-sm font-medium hover:bg-emerald-800 transition-colors">
+          Book Now
+        </a>
+      </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-6 pt-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <!-- Left: Gallery -->
+        <div class="order-2 lg:order-1">
+          <RoomGallery client:load images={room.images} roomName={room.name} />
+        </div>
+
+        <!-- Right: Content -->
+        <div class="order-1 lg:order-2 space-y-12">
+          <div>
+            <div class="flex justify-between items-baseline mb-4">
+              <h1 class="text-5xl md:text-6xl font-serif text-slate-900">{room.name}</h1>
+              <p class="text-2xl text-emerald-800 font-semibold">{room.price}<span class="text-sm text-slate-400 font-normal"> / night</span></p>
+            </div>
+            <p class="text-xl text-slate-600 font-light leading-relaxed">
+              {room.description}
+            </p>
+          </div>
+
+          <!-- Amenities -->
+          <div class="bg-stone-50 p-8 rounded-2xl border border-stone-100">
+            <h3 class="text-xl font-serif text-slate-900 mb-6 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-700"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              Room Amenities
+            </h3>
+            <ul class="grid grid-cols-2 gap-y-4 gap-x-8">
+              {room.amenities.map((amenity) => (
+                <li class="flex items-center gap-3 text-slate-600">
+                  <div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+                  {amenity}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Navigation Buttons -->
+          <div class="pt-12 border-t border-stone-100 flex flex-col sm:flex-row gap-6">
+            <a 
+              href={`/rooms/${prevRoom.slug}`}
+              class="flex-1 group flex items-center justify-between p-6 bg-white border border-stone-200 rounded-xl hover:border-emerald-200 hover:bg-emerald-50/30 transition-all"
+            >
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-500 group-hover:text-emerald-700 transition-colors"><path d="m15 18-6-6 6-6"/></svg>
+                </div>
+                <div>
+                  <span class="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Previous</span>
+                  <p class="font-serif text-slate-900">{prevRoom.name}</p>
+                </div>
+              </div>
+            </a>
+
+            <a 
+              href={`/rooms/${nextRoom.slug}`}
+              class="flex-1 group flex items-center justify-between p-6 bg-white border border-stone-200 rounded-xl hover:border-emerald-200 hover:bg-emerald-50/30 transition-all text-right"
+            >
+              <div class="flex items-center gap-4 ml-auto">
+                <div>
+                  <span class="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Next</span>
+                  <p class="font-serif text-slate-900">{nextRoom.name}</p>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-500 group-hover:text-emerald-700 transition-colors"><path d="m9 18 6-6-6-6"/></svg>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>

@@ -1,0 +1,45 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import RoomCard from '../../components/RoomCard.astro';
+import { rooms } from '../../data/rooms';
+---
+
+<Layout title="Our Rooms | Romillie Hadeljo">
+  <main class="min-h-screen bg-[#FAFAF9]">
+    <!-- Header -->
+    <header class="py-20 px-6 bg-emerald-950 text-white text-center">
+      <div class="max-w-4xl mx-auto">
+        <a href="/" class="text-emerald-300 hover:text-white transition-colors text-sm font-medium uppercase tracking-widest mb-8 inline-block">← Back to Home</a>
+        <h1 class="text-5xl md:text-6xl font-serif mb-6">Our Accommodations</h1>
+        <p class="text-lg text-emerald-100/80 font-light max-w-2xl mx-auto leading-relaxed">
+          Each room at Romillie Hadeljo is uniquely designed to provide a serene and comfortable sanctuary for our guests. Explore our selection of boutique rooms.
+        </p>
+      </div>
+    </header>
+
+    <!-- Rooms Grid -->
+    <section class="py-20 px-6 max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {rooms.map((room) => (
+          <RoomCard room={room} />
+        ))}
+      </div>
+    </section>
+
+    <!-- Footer-ish Section -->
+    <section class="py-20 px-6 text-center bg-stone-100">
+      <div class="max-w-2xl mx-auto">
+        <h2 class="text-3xl font-serif text-slate-900 mb-6">Ready to Book?</h2>
+        <p class="text-slate-600 mb-8">
+          Contact us directly for the best rates and personalized service.
+        </p>
+        <a 
+          href="/#contact" 
+          class="inline-block bg-emerald-900 text-white px-10 py-4 rounded-sm font-medium tracking-wide hover:bg-emerald-800 transition-colors shadow-lg"
+        >
+          Get in Touch
+        </a>
+      </div>
+    </section>
+  </main>
+</Layout>

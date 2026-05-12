@@ -1,25 +1,40 @@
 ---
 import { Wifi, Coffee, Car, Wind } from 'lucide-react';
 ---
-<section class="py-20 bg-gray-50 px-6">
-  <div class="max-w-4xl mx-auto text-center">
-    <h2 class="text-3xl font-bold mb-12">Everything You Need</h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-      <div class="flex flex-col items-center">
-        <Wifi className="w-10 h-10 mb-4 text-gray-600" />
-        <span class="font-medium">High-Speed Wi-Fi</span>
+<section class="py-24 px-6 relative bg-stone-50">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-serif text-slate-900 mb-4">Thoughtful Details</h2>
+      <p class="text-slate-500 max-w-lg mx-auto">Everything you need for a comfortable and relaxing stay.</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-100 flex flex-col items-center text-center hover:shadow-md transition-shadow duration-300 group">
+        <div class="bg-emerald-50 p-4 rounded-full mb-5 group-hover:bg-emerald-100 transition-colors duration-300">
+          <Wifi className="w-8 h-8 text-emerald-800" strokeWidth={1.5} />
+        </div>
+        <span class="font-medium text-slate-800">High-Speed Wi-Fi</span>
       </div>
-      <div class="flex flex-col items-center">
-        <Coffee className="w-10 h-10 mb-4 text-gray-600" />
-        <span class="font-medium">Breakfast Included</span>
+
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-100 flex flex-col items-center text-center hover:shadow-md transition-shadow duration-300 group">
+        <div class="bg-emerald-50 p-4 rounded-full mb-5 group-hover:bg-emerald-100 transition-colors duration-300">
+          <Coffee className="w-8 h-8 text-emerald-800" strokeWidth={1.5} />
+        </div>
+        <span class="font-medium text-slate-800">Breakfast Included</span>
       </div>
-      <div class="flex flex-col items-center">
-        <Car className="w-10 h-10 mb-4 text-gray-600" />
-        <span class="font-medium">Free Parking</span>
+
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-100 flex flex-col items-center text-center hover:shadow-md transition-shadow duration-300 group">
+        <div class="bg-emerald-50 p-4 rounded-full mb-5 group-hover:bg-emerald-100 transition-colors duration-300">
+          <Car className="w-8 h-8 text-emerald-800" strokeWidth={1.5} />
+        </div>
+        <span class="font-medium text-slate-800">Free Parking</span>
       </div>
-      <div class="flex flex-col items-center">
-        <Wind className="w-10 h-10 mb-4 text-gray-600" />
-        <span class="font-medium">AC & Heating</span>
+
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-100 flex flex-col items-center text-center hover:shadow-md transition-shadow duration-300 group">
+        <div class="bg-emerald-50 p-4 rounded-full mb-5 group-hover:bg-emerald-100 transition-colors duration-300">
+          <Wind className="w-8 h-8 text-emerald-800" strokeWidth={1.5} />
+        </div>
+        <span class="font-medium text-slate-800">Climate Control</span>
       </div>
     </div>
   </div>
