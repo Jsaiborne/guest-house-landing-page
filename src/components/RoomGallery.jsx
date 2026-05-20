@@ -2,14 +2,24 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function RoomGallery({ images, roomName }) {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
+
+  const showNext = (e) => {
+    e.stopPropagation();
+    setSelectedIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const showPrev = (e) => {
+    e.stopPropagation();
+    setSelectedIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
 
   return (
     <div className="space-y-4">
       {/* Main Large Image */}
       <div 
         className="relative h-[400px] md:h-[600px] w-full overflow-hidden rounded-2xl cursor-zoom-in group"
-        onClick={() => setSelectedImage(images[0])}
+        onClick={() => setSelectedIndex(0)}
       >
         <motion.img
           initial={{ opacity: 0, scale: 1.1 }}
@@ -28,7 +38,7 @@ export default function RoomGallery({ images, roomName }) {
           <div 
             key={index} 
             className="relative h-32 md:h-48 overflow-hidden rounded-xl cursor-zoom-in group"
-            onClick={() => setSelectedImage(src)}
+            onClick={() => setSelectedIndex(index + 1)}
           >
             <img
               src={src}
@@ -42,29 +52,47 @@ export default function RoomGallery({ images, roomName }) {
 
       {/* Lightbox */}
       <AnimatePresence>
-        {selectedImage && (
+        {selectedIndex !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/95 p-4 md:p-12 backdrop-blur-md"
-            onClick={() => setSelectedImage(null)}
+            onClick={() => setSelectedIndex(null)}
           >
             <button 
               className="absolute top-6 right-6 text-white hover:text-stone-300 transition-colors z-50 p-2 bg-white/10 rounded-full"
               onClick={(e) => {
                 e.stopPropagation();
-                setSelectedImage(null);
+                setSelectedIndex(null);
               }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
+
+            <button 
+              className="absolute left-4 md:left-8 text-white hover:text-stone-300 transition-colors z-50 p-2 bg-black/20 rounded-full hover:bg-black/40"
+              onClick={showPrev}
+              aria-label="Previous image"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+
+            <button 
+              className="absolute right-4 md:right-8 text-white hover:text-stone-300 transition-colors z-50 p-2 bg-black/20 rounded-full hover:bg-black/40"
+              onClick={showNext}
+              aria-label="Next image"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
             
             <motion.img
+              key={selectedIndex}
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              src={selectedImage}
+              transition={{ duration: 0.2 }}
+              src={images[selectedIndex]}
               className="w-full max-w-6xl max-h-[85vh] object-contain rounded-lg shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             />

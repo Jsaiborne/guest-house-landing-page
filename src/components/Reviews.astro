@@ -1,0 +1,46 @@
+---
+const reviews = [
+  {
+    name: "Sarah Jenkins",
+    text: "A truly magical stay. The attention to detail and the warmth of the hosts made us feel right at home.",
+    rating: 5
+  },
+  {
+    name: "Mark Thompson",
+    text: "Perfect location and incredibly comfortable rooms. The breakfast was a highlight of our trip!",
+    rating: 5
+  },
+  {
+    name: "Elena Rodriguez",
+    text: "Peaceful, clean, and beautifully decorated. I can't wait to return next summer.",
+    rating: 5
+  }
+];
+---
+<section id="reviews" class="py-24 px-6 bg-stone-50">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-serif text-slate-900 mb-4">Guest Stories</h2>
+      <p class="text-slate-500 max-w-lg mx-auto">Hear from those who have experienced the magic of Romillie Hadeljo.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {reviews.map((review) => (
+        <div class="bg-white p-10 rounded-2xl shadow-sm border border-stone-100 flex flex-col h-full hover:shadow-md transition-shadow duration-300">
+          <div class="flex gap-1 mb-6 text-amber-500">
+            {[...Array(review.rating)].map(() => (
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            ))}
+          </div>
+          <p class="text-slate-600 italic mb-8 flex-grow leading-relaxed">"{review.text}"</p>
+          <div class="flex items-center gap-4 border-t border-stone-50 pt-6">
+            <div class="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center text-stone-600 font-serif font-bold">
+              {review.name.charAt(0)}
+            </div>
+            <span class="font-medium text-slate-900">{review.name}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
