@@ -1,0 +1,146 @@
+---
+---
+
+<div class="bg-white/5 backdrop-blur-sm p-8 md:p-12 rounded-sm border border-white/10 text-left">
+  <form id="inquiry-form" class="space-y-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="space-y-2">
+        <label for="user_name" class="text-emerald-100 text-sm font-medium">Full Name</label>
+        <input 
+          type="text" 
+          id="user_name" 
+          name="user_name" 
+          required 
+          placeholder="John Doe"
+          class="w-full bg-white/10 border border-white/20 rounded-sm px-4 py-3 text-white placeholder:text-emerald-100/30 focus:outline-none focus:border-emerald-400 transition-colors"
+        />
+      </div>
+      <div class="space-y-2">
+        <label for="user_email" class="text-emerald-100 text-sm font-medium">Email Address</label>
+        <input 
+          type="email" 
+          id="user_email" 
+          name="user_email" 
+          required 
+          placeholder="john@example.com"
+          class="w-full bg-white/10 border border-white/20 rounded-sm px-4 py-3 text-white placeholder:text-emerald-100/30 focus:outline-none focus:border-emerald-400 transition-colors"
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="space-y-2">
+        <label for="check_in" class="text-emerald-100 text-sm font-medium">Check-in Date</label>
+        <input 
+          type="date" 
+          id="check_in" 
+          name="check_in" 
+          required 
+          class="w-full bg-white/10 border border-white/20 rounded-sm px-4 py-3 text-white focus:outline-none focus:border-emerald-400 transition-colors [color-scheme:dark]"
+        />
+      </div>
+      <div class="space-y-2">
+        <label for="check_out" class="text-emerald-100 text-sm font-medium">Check-out Date</label>
+        <input 
+          type="date" 
+          id="check_out" 
+          name="check_out" 
+          required 
+          class="w-full bg-white/10 border border-white/20 rounded-sm px-4 py-3 text-white focus:outline-none focus:border-emerald-400 transition-colors [color-scheme:dark]"
+        />
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <label for="message" class="text-emerald-100 text-sm font-medium">Your Message</label>
+      <textarea 
+        id="message" 
+        name="message" 
+        rows="4" 
+        required 
+        placeholder="Tell us about your requirements..."
+        class="w-full bg-white/10 border border-white/20 rounded-sm px-4 py-3 text-white placeholder:text-emerald-100/30 focus:outline-none focus:border-emerald-400 transition-colors resize-none"
+      ></textarea>
+    </div>
+
+    <button 
+      type="submit" 
+      id="submit-btn"
+      class="w-full bg-white text-emerald-950 px-8 py-4 rounded-sm font-medium hover:bg-stone-100 hover:-translate-y-0.5 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:hover:translate-y-0"
+    >
+      Send Inquiry
+    </button>
+
+    <div id="status-message" class="text-center text-sm mt-4 hidden"></div>
+  </form>
+</div>
+
+<script>
+  import emailjs from '@emailjs/browser';
+
+  const form = document.getElementById('inquiry-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const statusMsg = document.getElementById('status-message') as HTMLDivElement;
+
+  // Initialize EmailJS with your Public Key
+  const publicKey = import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY;
+  const serviceId = import.meta.env.PUBLIC_EMAILJS_SERVICE_ID;
+  const templateId = import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID;
+
+  if (publicKey && publicKey !== 'your_public_key_here') {
+    emailjs.init(publicKey);
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!publicKey || publicKey === 'your_public_key_here') {
+      showStatus('EmailJS is not configured. Please add your keys to the .env file.', 'error');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const result = await emailjs.sendForm(
+        serviceId,
+        templateId,
+        form
+      );
+
+      if (result.status === 200) {
+        showStatus('Thank you! Your inquiry has been sent successfully.', 'success');
+        form.reset();
+      } else {
+        throw new Error('Failed to send email');
+      }
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      showStatus('Oops! Something went wrong. Please try again or contact us via WhatsApp.', 'error');
+    } finally {
+      setLoading(false);
+    }
+  });
+
+  function setLoading(isLoading: boolean) {
+    if (submitBtn) {
+      submitBtn.disabled = isLoading;
+      submitBtn.textContent = isLoading ? 'Sending...' : 'Send Inquiry';
+    }
+  }
+
+  function showStatus(message: string, type: 'success' | 'error') {
+    if (statusMsg) {
+      statusMsg.textContent = message;
+      statusMsg.classList.remove('hidden', 'text-emerald-400', 'text-red-400');
+      statusMsg.classList.add(type === 'success' ? 'text-emerald-400' : 'text-red-400');
+      
+      // Clear status after 5 seconds if success
+      if (type === 'success') {
+        setTimeout(() => {
+          statusMsg.classList.add('hidden');
+        }, 5000);
+      }
+    }
+  }
+</script>

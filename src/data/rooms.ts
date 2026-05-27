@@ -45,7 +45,7 @@ export const rooms: Room[] = [
       'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1200',
       'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=1200'
     ],
-    amenities: ['Double Bed', 'Air Conditioning', 'Safe', 'Daily Housekeeping', 'Hairdryer'],
+    amenities: ['Double Bed', 'Naturally Cool Climate', 'Safe', 'Daily Housekeeping', 'Hairdryer'],
     price: '₹3,200'
   },
   {
