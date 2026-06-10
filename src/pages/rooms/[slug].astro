@@ -18,7 +18,7 @@ const prevRoom = rooms[(currentIndex - 1 + rooms.length) % rooms.length];
 const nextRoom = rooms[(currentIndex + 1) % rooms.length];
 ---
 
-<Layout title={`${room.name} | Romillie Hadeljo`}>
+<Layout title={`${room.name} | Romillie Hadeljo`} hideHeader={true}>
   <main class="min-h-screen bg-[#FAFAF9] pb-20">
     <!-- Sticky Navigation -->
     <nav class="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-stone-100 py-4 px-6">
@@ -30,8 +30,8 @@ const nextRoom = rooms[(currentIndex + 1) % rooms.length];
         <div class="hidden md:block">
           <h2 class="text-lg font-serif text-slate-900">{room.name}</h2>
         </div>
-        <a href="/#contact" class="bg-emerald-900 text-white px-6 py-2 rounded-sm text-sm font-medium hover:bg-emerald-800 transition-colors">
-          Book Now
+        <a href={`/#contact?room=${room.slug}`} class="bg-emerald-900 text-white px-6 py-2 rounded-sm text-sm font-medium hover:bg-emerald-800 transition-colors">
+          Enquire Now
         </a>
       </div>
     </nav>

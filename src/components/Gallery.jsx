@@ -1,14 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const images = [
-  "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=1200",
-  "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=1200",
-  "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1200",
-  "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1200",
-];
-
-export default function Gallery() {
+export default function Gallery({ images = [] }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
 
   const showNext = (e) => {

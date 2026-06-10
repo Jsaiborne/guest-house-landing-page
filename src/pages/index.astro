@@ -6,6 +6,10 @@ import Gallery from '../components/Gallery.jsx';
 import Reviews from '../components/Reviews.astro';
 import Location from '../components/Location.astro';
 import Contact from '../components/Contact.astro';
+import { rooms } from '../data/rooms';
+
+// Pull the first image from each room for the homepage gallery
+const galleryImages = rooms.map(room => room.images[0]);
 ---
 
 <Layout title="Romillie Hadeljo | Guest House">
@@ -13,7 +17,7 @@ import Contact from '../components/Contact.astro';
     <Hero />
     <Amenities />
     <!-- Notice the client:load directive. This tells Astro to load the React JavaScript for this component -->
-    <Gallery client:load /> 
+    <Gallery client:load images={galleryImages} /> 
     <Reviews />
     <Location />
     <Contact />

@@ -28,6 +28,22 @@
       </div>
     </div>
 
+    <div class="space-y-2">
+      <label for="room_selection" class="text-emerald-100 text-sm font-medium">Room of Interest</label>
+      <select 
+        id="room_selection" 
+        name="room_selection" 
+        class="w-full bg-white/10 border border-white/20 rounded-sm px-4 py-3 text-white focus:outline-none focus:border-emerald-400 transition-colors [color-scheme:dark]"
+      >
+        <option value="general" class="bg-emerald-950 text-white">General Inquiry (No specific room)</option>
+        <option value="bedroom-1" class="bg-emerald-950 text-white">Bedroom 1</option>
+        <option value="bedroom-2" class="bg-emerald-950 text-white">Bedroom 2</option>
+        <option value="bedroom-3" class="bg-emerald-950 text-white">Bedroom 3</option>
+        <option value="bedroom-4" class="bg-emerald-950 text-white">Bedroom 4</option>
+        <option value="bedroom-5" class="bg-emerald-950 text-white">Bedroom 5</option>
+      </select>
+    </div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div class="space-y-2">
         <label for="check_in" class="text-emerald-100 text-sm font-medium">Check-in Date</label>
@@ -81,6 +97,17 @@
   const form = document.getElementById('inquiry-form') as HTMLFormElement;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
   const statusMsg = document.getElementById('status-message') as HTMLDivElement;
+
+  // Pre-select room from query parameter if present
+  const urlParams = new URLSearchParams(window.location.search);
+  const roomParam = urlParams.get('room');
+  const roomSelect = document.getElementById('room_selection') as HTMLSelectElement;
+  if (roomSelect && roomParam) {
+    const options = Array.from(roomSelect.options).map(o => o.value);
+    if (options.includes(roomParam)) {
+      roomSelect.value = roomParam;
+    }
+  }
 
   // Initialize EmailJS with your Public Key
   const publicKey = import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY;
