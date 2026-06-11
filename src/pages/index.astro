@@ -1,23 +1,31 @@
 ---
+import fs from 'node:fs';
+import path from 'node:path';
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
 import Amenities from '../components/Amenities.astro';
 import Gallery from '../components/Gallery.jsx';
 import Reviews from '../components/Reviews.astro';
 import Location from '../components/Location.astro';
 import Contact from '../components/Contact.astro';
-import { rooms } from '../data/rooms';
 
-// Pull the first image from each room for the homepage gallery
-const galleryImages = rooms.map(room => room.images[0]);
+const galleryDir = path.join(process.cwd(), 'public/images/gallery');
+const files = fs.existsSync(galleryDir) ? fs.readdirSync(galleryDir) : [];
+
+const allGalleryImages = files
+  .filter((file: string) => /\.(jpe?g|png|gif|webp)$/i.test(file))
+  .map((file: string) => `/images/gallery/${file}`)
+  .sort(() => Math.random() - 0.5);
 ---
 
 <Layout title="Romillie Hadeljo | Guest House">
   <main class="font-sans text-gray-800 antialiased">
     <Hero />
+    <About />
     <Amenities />
     <!-- Notice the client:load directive. This tells Astro to load the React JavaScript for this component -->
-    <Gallery client:load images={galleryImages} /> 
+    <Gallery client:load images={allGalleryImages as any} />
     <Reviews />
     <Location />
     <Contact />

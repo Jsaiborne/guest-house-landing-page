@@ -50,9 +50,35 @@ const nextRoom = rooms[(currentIndex + 1) % rooms.length];
               <h1 class="text-5xl md:text-6xl font-serif text-slate-900">{room.name}</h1>
               <p class="text-2xl text-emerald-800 font-semibold">{room.price}<span class="text-sm text-slate-400 font-normal"> / night</span></p>
             </div>
-            <p class="text-xl text-slate-600 font-light leading-relaxed">
+            <p class="text-xl text-slate-600 font-light leading-relaxed mb-6">
               {room.description}
             </p>
+
+            <!-- OTA Booking Recommendation Card -->
+            <div class="p-6 bg-emerald-50/60 border border-emerald-100 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <p class="font-serif text-slate-950 font-semibold text-base">Book this room hassle-free</p>
+                <p class="text-slate-500 text-xs mt-1 leading-relaxed">We recommend checking live availability and booking via MakeMyTrip or Goibibo for a secure and instant experience.</p>
+              </div>
+              <div class="flex gap-3 w-full sm:w-auto shrink-0">
+                <a 
+                  href="https://www.makemytrip.com/hotels/romillie_hadeljo-details-shillong.html" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="flex-1 sm:flex-none text-center bg-[#d9222a] text-white px-4 py-2.5 rounded-sm text-xs font-semibold uppercase hover:bg-[#bc1c22] transition-colors"
+                >
+                  MakeMyTrip
+                </a>
+                <a 
+                  href="https://www.goibibo.com/hotels/romillie-hadeljo-hotel-in-shillong-4032960575066252791/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="flex-1 sm:flex-none text-center bg-[#f05a22] text-white px-4 py-2.5 rounded-sm text-xs font-semibold uppercase hover:bg-[#d64e1c] transition-colors"
+                >
+                  Goibibo
+                </a>
+              </div>
+            </div>
           </div>
 
           <!-- Amenities -->

@@ -22,7 +22,7 @@ export default function Gallery({ images = [] }) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {images.map((src, index) => (
+        {images.slice(0, 4).map((src, index) => (
           <div 
             key={index} 
             className={`relative overflow-hidden rounded-xl bg-stone-200 cursor-pointer group ${index === 0 || index === 3 ? 'md:h-[500px]' : 'md:h-[400px]'} h-72`}

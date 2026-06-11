@@ -1,19 +1,29 @@
 ---
 const reviews = [
   {
-    name: "Sarah Jenkins",
-    text: "A truly magical stay. The attention to detail and the warmth of the hosts made us feel right at home.",
-    rating: 5
+    name: "Laxmikant Sahu",
+    text: "Rooms are spacious and clean. The terrace view is fantastic. It is in top of hill and place is calm and peaceful.",
+    rating: 5,
+    date: "Recent",
+    tripType: "Holiday · Family",
+    badge: "8 reviews"
   },
   {
-    name: "Mark Thompson",
-    text: "Perfect location and incredibly comfortable rooms. The breakfast was a highlight of our trip!",
-    rating: 5
+    name: "Pooja Paul Chowdhury",
+    text: "The place is beautiful. The stay is very clean. The staff is really hospitable and even the food is awesome. Mr. Freddy took care of our requirements throughout our vacation. Overall, it was a very good homestay in a long time.",
+    rating: 5,
+    date: "28 Apr 2025",
+    tripType: "Holiday · Family"
   },
   {
-    name: "Elena Rodriguez",
-    text: "Peaceful, clean, and beautifully decorated. I can't wait to return next summer.",
-    rating: 5
+    name: "Kinjal Mandal",
+    text: "If you want to stay offbeat in Shillong then this would be the best place for you. Extremely value for money homestay. Rooms were neat and clean and staffs were very polite. Food was homely. The city and forest view was amazing. They provide free jio wifi and jio set of box (ott apps). TOTALLY RECOMMENDED",
+    rating: 5,
+    date: "27 Nov 2024",
+    tripType: "Holiday",
+    badge: "Local Guide",
+    details: "Rooms: 5/5 • Service: 5/5 • Location: 5/5",
+    highlights: "Great view • Great value"
   }
 ];
 ---
@@ -21,23 +31,55 @@ const reviews = [
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-16">
       <h2 class="text-4xl md:text-5xl font-serif text-slate-900 mb-4">Guest Stories</h2>
-      <p class="text-slate-500 max-w-lg mx-auto">Hear from those who have experienced the magic of Romillie Hadeljo.</p>
+      <p class="text-slate-500 max-w-lg mx-auto">Hear from those who have experienced the warmth and peace of Romillie Hadeljo.</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       {reviews.map((review) => (
-        <div class="bg-white p-10 rounded-2xl shadow-sm border border-stone-100 flex flex-col h-full hover:shadow-md transition-shadow duration-300">
-          <div class="flex gap-1 mb-6 text-amber-500">
-            {[...Array(review.rating)].map(() => (
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            ))}
+        <div class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-stone-100 flex flex-col h-full hover:shadow-md transition-shadow duration-300">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex gap-1 text-amber-500">
+              {[...Array(review.rating)].map(() => (
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              ))}
+            </div>
+            <span class="text-stone-400 text-xs font-light">{review.date}</span>
           </div>
-          <p class="text-slate-600 italic mb-8 flex-grow leading-relaxed">"{review.text}"</p>
-          <div class="flex items-center gap-4 border-t border-stone-50 pt-6">
-            <div class="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center text-stone-600 font-serif font-bold">
+
+          {review.tripType && (
+            <div class="text-emerald-800 text-xs font-semibold uppercase tracking-wider mb-4">
+              {review.tripType}
+            </div>
+          )}
+
+          <p class="text-slate-600 leading-relaxed text-sm md:text-base italic mb-6 flex-grow">
+            "{review.text}"
+          </p>
+
+          {review.details && (
+            <div class="text-xs text-slate-500 border-t border-stone-100 pt-4 mb-3 font-medium">
+              {review.details}
+            </div>
+          )}
+
+          {review.highlights && (
+            <div class="text-xs text-emerald-700 font-semibold mb-4 bg-emerald-50/50 w-fit px-2.5 py-1 rounded-sm">
+              {review.highlights}
+            </div>
+          )}
+
+          <div class="flex items-center gap-4 border-t border-stone-100 pt-6 mt-auto">
+            <div class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-800 flex items-center justify-center font-serif font-bold">
               {review.name.charAt(0)}
             </div>
-            <span class="font-medium text-slate-900">{review.name}</span>
+            <div>
+              <p class="font-semibold text-slate-900 text-sm">{review.name}</p>
+              {review.badge && (
+                <span class="text-[10px] bg-stone-100 text-stone-500 px-2 py-0.5 rounded-full font-medium block w-fit mt-1">
+                  {review.badge}
+                </span>
+              )}
+            </div>
           </div>
         </div>
       ))}
