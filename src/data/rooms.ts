@@ -41,7 +41,7 @@ export const rooms: Room[] = [
       'Free Breakfast',
       'Onsite Cook (Homemade Meals)'
     ],
-    price: '₹3,500'
+    price: '₹2,000'
   },
   {
     slug: 'bedroom-2',
@@ -77,7 +77,7 @@ export const rooms: Room[] = [
       'Free Breakfast',
       'Onsite Cook (Homemade Meals)'
     ],
-    price: '₹4,000'
+    price: '₹2,000'
   },
   {
     slug: 'bedroom-3',
@@ -108,7 +108,7 @@ export const rooms: Room[] = [
       'Free Breakfast',
       'Onsite Cook (Homemade Meals)'
     ],
-    price: '₹3,200'
+    price: '₹1,800'
   },
   {
     slug: 'bedroom-4',
@@ -149,7 +149,7 @@ export const rooms: Room[] = [
       'Free Breakfast',
       'Onsite Cook (Homemade Meals)'
     ],
-    price: '₹6,000'
+    price: '₹2,500'
   },
   {
     slug: 'bedroom-5',
@@ -190,6 +190,6 @@ export const rooms: Room[] = [
       'Free Breakfast',
       'Onsite Cook (Homemade Meals)'
     ],
-    price: '₹4,500'
+    price: '₹3,200'
   }
 ];
